@@ -1,8 +1,7 @@
 # ================================================================
 # PROJET ÉCONOMÉTRIE QUALITATIVE — PARTIE YUKA
-# Parties 1, 2, 3 : Présentation, Statistiques descriptives,
+# Parties 1 : Présentation, Statistiques descriptives,
 #                   Analyse exploratoire approfondie
-# Auteure : Palla Gaye
 # Master 1 BIDABI — Université Sorbonne Paris Nord
 # ================================================================
 
@@ -198,6 +197,8 @@ print(corr_matrix.round(3).to_string())
 
 # Détecter les corrélations fortes
 print("\n🧠 Analyse de la multicolinéarité :")
+# Seuil conservateur de 0.5 (plus strict que le 0.7/0.8 souvent
+# utilisé en économétrie — toute corrélation modérée est signalée)
 seuil = 0.5
 paires_fortes = []
 for i in range(len(vars_quanti)):
@@ -214,9 +215,10 @@ if paires_fortes:
     print("    Il faudra vérifier leur pertinence individuelle dans le modèle.")
 else:
     print(f"  Aucune corrélation > {seuil} détectée entre les variables.")
-    print("  → Pas de problème de multicolinéarité : chaque variable")
-    print("    apporte une information distincte au modèle.")
-    print("    Toutes peuvent être incluses dans l'estimation.")
+    print("  → Aucune corrélation élevée détectée (seuil conservateur 0.5).")
+    print("    On ne soupçonne pas de multicolinéarité forte, à confirmer")
+    print("    lors de l'estimation du modèle.")
+    print("    Toutes les variables peuvent être incluses en première approche.")
 
 fig, ax = plt.subplots(figsize=(9, 7))
 mask = np.triu(np.ones_like(corr_matrix, dtype=bool))
@@ -257,6 +259,8 @@ print(f"""
   → Toutes les variables quantitatives sont significatives au
     seuil de 5%, ce qui justifie leur inclusion dans le modèle
     Logit Ordonné.
+  → Ces résultats suggèrent des différences de moyennes entre
+    classes, sans préjuger de la forme fonctionnelle du modèle.
 """)
 
 # ── 2.6 Tests Chi² ───────────────────────────────────────────────
@@ -368,9 +372,9 @@ for var in vars_quali:
 print("""
 🧠 Interprétation :
   - bio : la proportion de produits bio augmente clairement avec
-    le score Yuka (de ~26% chez les Mauvais à ~21% chez les
+    le score Yuka (de ~13.6% chez les Mauvais à ~30.8% chez les
     Excellents). Être bio est associé à de meilleures pratiques
-    de production et moins d'intrants chimiques.
+    de production, moins d'additifs et moins d'intrants chimiques.
   - ultra_transforme : la proportion chute fortement du bas vers
     le haut de l'échelle (~54% de Mauvais sont ultra-transformés
     contre seulement ~5% d'Excellents). Ce résultat est
@@ -410,7 +414,8 @@ Variables à effet NÉGATIF attendu sur le score Yuka :
   - sel_100g          : plus de sel → score plus bas
   - graisses_saturees_100g : associées aux maladies cardio.
   - nb_additifs       : marqueur de transformation industrielle
-  - calories_100g     : tendance moins nette mais significative
+  - calories_100g     : effet ambigu ou faible (significatif
+    statistiquement mais tendance peu claire économiquement)
   - ultra_transforme  : score Yuka systématiquement dégradé
 
 Variables à effet POSITIF attendu sur le score Yuka :
@@ -418,18 +423,26 @@ Variables à effet POSITIF attendu sur le score Yuka :
   - proteines_100g    : facteur de qualité alimentaire
   - bio               : moins d'intrants, meilleur profil
 
-Pas de multicolinéarité problématique détectée entre les
-variables explicatives (aucune corrélation > 0.5).
+Aucune corrélation élevée détectée… on ne soupçonne pas de 
+multicolinéarité forte entre les variables explicatives 
+(aucune corrélation > 0.5).
 
 → Toutes les variables sont retenues pour l'estimation du
   modèle Logit Ordonné (Parties 4, 5, 6).
 
+Limite à garder en tête :
+  Les résultats restent descriptifs et peuvent être influencés
+  par des variables omises (ex : catégorie de produit, marque,
+  prix). L'estimation économétrique permettra de contrôler
+  ces effets partiellement.
+
 Phrase clé :
 "Les statistiques descriptives nous permettent d'identifier
 les variables pertinentes avant l'estimation économétrique.
-L'ensemble des variables présente une relation significative
-avec le score Yuka, ce qui justifie leur inclusion dans le
-modèle Logit Ordonné."
+Cette analyse exploratoire permet d'éviter un modèle mal
+spécifié. L'ensemble des variables présente une relation
+significative avec le score Yuka, ce qui justifie leur
+inclusion dans le modèle Logit Ordonné."
 """)
 
 print("✅ Script Parties 1, 2, 3 terminé.")
