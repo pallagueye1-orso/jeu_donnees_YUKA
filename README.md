@@ -116,6 +116,97 @@ Les figures sont automatiquement sauvegardées dans `figures/`.
 - Toutes les variables significatives aux tests ANOVA et Chi² (p < 0.05).
 ---
  
+## Modèle économétrique retenu
+
+La variable dépendante `score_yuka_ordonne` est ordonnée (1 = Mauvais, 2 = Médiocre, 3 = Bon, 4 = Excellent).  
+Ce caractère ordinal exclut la régression linéaire (variable non continue) ainsi que le logit binaire (plus de deux catégories).
+
+Le modèle retenu est donc le **Logit Ordonné (Ordered Logit)**, qui permet de modéliser la probabilité d’appartenir à une catégorie en fonction des variables explicatives.
+
+---
+
+## Spécification du modèle
+
+Les variables explicatives utilisées sont :
+
+- calories_100g  
+- sucres_100g  
+- graisses_saturees_100g  
+- sel_100g  
+- fibres_100g  
+- proteines_100g  
+- nb_additifs  
+- bio  
+- ultra_transforme  
+
+Le modèle est estimé sous Python avec la bibliothèque `statsmodels`.
+
+## Modèle économétrique retenu
+
+La variable dépendante `score_yuka_ordonne` est ordonnée (1 = Mauvais, 2 = Médiocre, 3 = Bon, 4 = Excellent).  
+Ce caractère ordinal exclut la régression linéaire (variable non continue) ainsi que le logit binaire (plus de deux catégories).
+
+Le modèle retenu est donc le **Logit Ordonné (Ordered Logit)**, qui permet de modéliser la probabilité d’appartenir à une catégorie en fonction des variables explicatives.
+
+---
+
+## Spécification du modèle
+
+Les variables explicatives utilisées sont :
+
+- calories_100g  
+- sucres_100g  
+- graisses_saturees_100g  
+- sel_100g  
+- fibres_100g  
+- proteines_100g  
+- nb_additifs  
+- bio  
+- ultra_transforme  
+
+Le modèle est estimé sous Python avec la bibliothèque `statsmodels`.
+
+## Modèle économétrique retenu
+
+La variable dépendante `score_yuka_ordonne` est ordonnée (1 = Mauvais, 2 = Médiocre, 3 = Bon, 4 = Excellent).  
+Ce caractère ordinal exclut la régression linéaire (variable non continue) ainsi que le logit binaire (plus de deux catégories).
+
+Le modèle retenu est donc le **Logit Ordonné (Ordered Logit)**, qui permet de modéliser la probabilité d’appartenir à une catégorie en fonction des variables explicatives.
+
+---
+
+## Spécification du modèle
+
+Les variables explicatives utilisées sont :
+
+- calories_100g  
+- sucres_100g  
+- graisses_saturees_100g  
+- sel_100g  
+- fibres_100g  
+- proteines_100g  
+- nb_additifs  
+- bio  
+- ultra_transforme  
+
+Le modèle est estimé sous Python avec la bibliothèque `statsmodels`.
+
+---
+
+## Résultats (Partie 2)
+
+- Sucres, sel, graisses saturées et nombre d’additifs : effet négatif sur le score  
+- Fibres et protéines : effet positif  
+- Produits bio : probabilité plus élevée d’obtenir une bonne note  
+- Produits ultra-transformés : forte probabilité d’avoir une mauvaise note  
+- Toutes les variables sont statistiquement significatives (p < 0.05)
+
+---
+
+## Résultats détaillés
+
+Les résultats complets du modèle sont disponibles dans le fichier `resultats_havar.txt`.
+
 ## Livrables
  
 Conformément aux consignes de la prof :
@@ -125,3 +216,5 @@ Conformément aux consignes de la prof :
 ---
  
 *Cours dispensé par Mme Imen Ghattassi — Université Sorbonne Paris Nord*
+
+
