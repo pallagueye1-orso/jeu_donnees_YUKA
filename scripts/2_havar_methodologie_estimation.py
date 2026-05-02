@@ -1,34 +1,64 @@
 import pandas as pd
 from statsmodels.miscmodels.ordinal_model import OrderedModel
 
-# Charger données
-df = pd.read_csv("../data/jeu_donnees_yuka.csv", sep=';')
-
+# Charger les données
+df = pd.read_csv('../data/jeu_donnees_yuka.csv', sep=';')
 print(df.head())
 print(df.columns)
 
-# Variable dépendante
-y = df["score_yuka_ordonne"]
+# Variable dépendante (ordonnée)
+y = df['score_yuka_ordonne']
 
-# Variables explicatives
-X = df[[
-    "calories_100g",
-    "sucres_100g",
-    "graisses_saturees_100g",
-    "sel_100g",
-    "fibres_100g",
-    "proteines_100g",
-    "nb_additifs",
-    "bio",
-    "ultra_transforme"
-]]
+# -------------------------
+# MODELE 1 : COMPLET (SATURÉ)
+# -------------------------
+X1 = df[['graisses_saturees_100g',
+         'sel_100g',
+         'fibres_100g',
+         'proteines_100g',
+         'nb_additifs',
+         'bio',
+         'ultra_transforme']]
 
-# Modèle Ordered Logit
-model = OrderedModel(y, X, distr='logit')
+model1 = OrderedModel(y, X1, distr='logit')
+res1 = model1.fit(method='bfgs')
+print("\n=== MODELE 1 : COMPLET ===")
+print(res1.summary())
 
-result = model.fit(method='bfgs')
+# -------------------------
+# MODELE 2 : SANS VARIABLES QUALITATIVES
+# -------------------------
+X2 = df[['graisses_saturees_100g',
+         'sel_100g',
+         'fibres_100g',
+         'proteines_100g']]
 
-print(result.summary())
+model2 = OrderedModel(y, X2, distr='logit')
+res2 = model2.fit(method='bfgs')
+print("\n=== MODELE 2 : NUTRITION SEULE ===")
+print(res2.summary())
 
-with open("../resultats_havar.txt", "w") as f:
-    f.write(result.summary().as_text())
+# -------------------------
+# MODELE 3 : SANS ADDITIFS ET ULTRA-TRANSFORMÉ
+# -------------------------
+X3 = df[['graisses_saturees_100g',
+         'sel_100g',
+         'fibres_100g',
+         'proteines_100g',
+         'bio']]
+
+model3 = OrderedModel(y, X3, distr='logit')
+res3 = model3.fit(method='bfgs')
+print("\n=== MODELE 3 : SANS ULTRA-TRANSFORMÉ ===")
+print(res3.summary())
+
+# -------------------------
+# SAUVEGARDE DES RESULTATS
+# -------------------------
+with open('../resultats_havar.txt', 'w') as f:
+    f.write("=== MODELE 1 ===\n")
+    f.write(res1.summary().as_text())
+    f.write("\n\n=== MODELE 2 ===\n")
+    f.write(res2.summary().as_text())
+    f.write("\n\n=== MODELE 3 ===\n")
+    f.write(res3.summary().as_text())
