@@ -74,138 +74,73 @@ jeu_donnees_YUKA/
 ---
  
 ## Modèle économétrique retenu
- 
-La variable dépendante `score_yuka_ordonne` est **ordonnée** (4 catégories avec un ordre logique).
-Ce caractère ordinal exclut la régression linéaire (Y n'est pas continue) et le logit binaire (plus de 2 catégories).
- 
-Le modèle retenu est le **Logit Ordonné** (*Ordered Logit*), qui modélise la probabilité
-de passer d'une catégorie à la suivante en fonction des variables explicatives.
- 
----
- 
-## Prérequis
- 
-```bash
-pip install pandas numpy matplotlib seaborn scipy statsmodels
-```
- 
----
- 
-## Exécution
- 
-Lancer les scripts depuis le dossier `scripts/` :
- 
-```bash
-cd scripts
-python partie1_Palla.py
-python partie2_Havar.py
-python partie3_Mouhammad.py
-```
- 
-Les figures sont automatiquement sauvegardées dans `figures/`.
- 
----
- 
-## Principaux résultats (Partie 1)
- 
-- Sucres, sel, graisses saturées et nb_additifs : **effet négatif** attendu sur le score.
-- Fibres et protéines : **effet positif** attendu.
-- Produits bio : proportion d'Excellents nettement plus élevée (30.8% contre 13.6% chez les Mauvais).
-- Produits ultra-transformés : 53.5% classés Mauvais, seulement 5.2% Excellents.
-- Aucune multicolinéarité forte détectée (seuil conservateur 0.5).
-- Toutes les variables significatives aux tests ANOVA et Chi² (p < 0.05).
----
- 
-## Modèle économétrique retenu
 
-La variable dépendante `score_yuka_ordonne` est ordonnée (1 = Mauvais, 2 = Médiocre, 3 = Bon, 4 = Excellent).  
-Ce caractère ordinal exclut la régression linéaire (variable non continue) ainsi que le logit binaire (plus de deux catégories).
+La variable dépendante `score_yuka_ordonne` est une variable **ordonnée** (1 = Mauvais, 2 = Médiocre, 3 = Bon, 4 = Excellent).
 
-Le modèle retenu est donc le **Logit Ordonné (Ordered Logit)**, qui permet de modéliser la probabilité d’appartenir à une catégorie en fonction des variables explicatives.
+Ce caractère ordinal exclut l’utilisation :
+
+* d’une régression linéaire (variable non continue)
+* d’un logit binaire (plus de deux catégories)
+
+Le modèle retenu est donc un **logit ordonné (Ordered Logit)**, qui permet de modéliser la probabilité d’appartenir à une catégorie de score en fonction des variables explicatives.
+
+Trois spécifications ont été estimées :
+
+* **Modèle 1 : Complet (saturé)**
+  Inclut toutes les variables explicatives :
+  `graisses_saturees_100g`, `sel_100g`, `fibres_100g`, `proteines_100g`, `nb_additifs`, `bio`, `ultra_transforme`
+
+* **Modèle 2 : Nutrition seule**
+  Inclut uniquement les variables nutritionnelles :
+  `graisses_saturees_100g`, `sel_100g`, `fibres_100g`, `proteines_100g`
+
+* **Modèle 3 : Sans ultra_transformé**
+  Permet d’évaluer l’impact spécifique de la variable `ultra_transforme`
+
+La comparaison des modèles repose sur les critères AIC et BIC.
+
+Le **Modèle 1 (complet)** présente les meilleures performances (AIC et BIC les plus faibles).
+Il est donc retenu comme modèle final.
 
 ---
 
-## Spécification du modèle
+## Spécification du modèle retenu
 
-Les variables explicatives utilisées sont :
+Les variables explicatives du modèle final sont :
 
-- calories_100g  
-- sucres_100g  
-- graisses_saturees_100g  
-- sel_100g  
-- fibres_100g  
-- proteines_100g  
-- nb_additifs  
-- bio  
-- ultra_transforme  
+* graisses_saturees_100g
+* sel_100g
+* fibres_100g
+* proteines_100g
+* nb_additifs
+* bio
+* ultra_transforme
 
-Le modèle est estimé sous Python avec la bibliothèque `statsmodels`.
-
-## Modèle économétrique retenu
-
-La variable dépendante `score_yuka_ordonne` est ordonnée (1 = Mauvais, 2 = Médiocre, 3 = Bon, 4 = Excellent).  
-Ce caractère ordinal exclut la régression linéaire (variable non continue) ainsi que le logit binaire (plus de deux catégories).
-
-Le modèle retenu est donc le **Logit Ordonné (Ordered Logit)**, qui permet de modéliser la probabilité d’appartenir à une catégorie en fonction des variables explicatives.
-
----
-
-## Spécification du modèle
-
-Les variables explicatives utilisées sont :
-
-- calories_100g  
-- sucres_100g  
-- graisses_saturees_100g  
-- sel_100g  
-- fibres_100g  
-- proteines_100g  
-- nb_additifs  
-- bio  
-- ultra_transforme  
-
-Le modèle est estimé sous Python avec la bibliothèque `statsmodels`.
-
-## Modèle économétrique retenu
-
-La variable dépendante `score_yuka_ordonne` est ordonnée (1 = Mauvais, 2 = Médiocre, 3 = Bon, 4 = Excellent).  
-Ce caractère ordinal exclut la régression linéaire (variable non continue) ainsi que le logit binaire (plus de deux catégories).
-
-Le modèle retenu est donc le **Logit Ordonné (Ordered Logit)**, qui permet de modéliser la probabilité d’appartenir à une catégorie en fonction des variables explicatives.
-
----
-
-## Spécification du modèle
-
-Les variables explicatives utilisées sont :
-
-- calories_100g  
-- sucres_100g  
-- graisses_saturees_100g  
-- sel_100g  
-- fibres_100g  
-- proteines_100g  
-- nb_additifs  
-- bio  
-- ultra_transforme  
-
-Le modèle est estimé sous Python avec la bibliothèque `statsmodels`.
+Le modèle est estimé sous Python à l’aide de la bibliothèque `statsmodels`.
 
 ---
 
 ## Résultats (Partie 2)
 
-- Sucres, sel, graisses saturées et nombre d’additifs : effet négatif sur le score  
-- Fibres et protéines : effet positif  
-- Produits bio : probabilité plus élevée d’obtenir une bonne note  
-- Produits ultra-transformés : forte probabilité d’avoir une mauvaise note  
-- Toutes les variables sont statistiquement significatives (p < 0.05)
+Les résultats obtenus montrent que :
+
+* Les **graisses saturées**, le **sel** et le **nombre d’additifs** ont un **effet négatif significatif** sur la note Yuka
+* Les **fibres** et les **protéines** ont un **effet positif significatif**
+* Les produits **bio** ont une probabilité plus élevée d’obtenir une bonne note
+* Les produits **ultra-transformés** ont une forte probabilité d’obtenir une mauvaise note
+
+Toutes les variables sont statistiquement significatives (p < 0.05).
 
 ---
 
 ## Résultats détaillés
 
-Les résultats complets du modèle sont disponibles dans le fichier `resultats_havar.txt`.
+Les résultats complets des estimations sont disponibles dans le fichier :
+
+`results_havar.txt`
+
+---
+
 
 ## Livrables
  
