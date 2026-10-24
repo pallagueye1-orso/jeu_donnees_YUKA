@@ -51,9 +51,10 @@ jeu_donnees_YUKA/
 │   └── jeu_donnees_yuka.csv
 │
 ├── scripts/
-│   ├── partie1_Palla.py          ← Présentation, stats descriptives, analyse exploratoire
-│   ├── partie2_Havar.py          ← Méthodologie et estimation du modèle
-│   └── partie3_Mouhammad.py      ← Évaluation, interprétation, choix du modèle
+│   ├── notebook_final_yuka.ipynb ← Notebook final
+│   ├── partie1_Palla.ipynb       ← Présentation, stats descriptives, analyse exploratoire
+│   ├── partie2_Havar.ipynb       ← Méthodologie et estimation du modèle
+│   └── partie3_Mouhammad.ipynb   ← Évaluation, interprétation, choix du modèle
 │
 ├── figures/                      ← Graphiques générés automatiquement
 │
@@ -67,9 +68,9 @@ jeu_donnees_YUKA/
  
 | Membre | Script | Contenu |
 |---|---|---|
-| Palla Gueye | `partie1_Palla.py` | Présentation des données · Statistiques descriptives · Analyse exploratoire |
-| Havar Baskara | `partie2_Havar.py` | Méthodologie économétrique · Spécification · Estimation du Logit Ordonné |
-| Mouhammad Gaye | `partie3_Mouhammad.py` | Évaluation des modèles · Interprétation · Choix du modèle final |
+| Palla Gueye | `partie1_Palla.ipynb` | Présentation des données · Statistiques descriptives · Analyse exploratoire |
+| Havar Baskara | `partie2_Havar.ipynb` | Méthodologie économétrique · Spécification · Estimation du Logit Ordonné |
+| Mouhammad Gaye | `partie3_Mouhammad.ipynb` | Évaluation des modèles · Interprétation · Choix du modèle final |
  
 ---
  
@@ -137,7 +138,7 @@ Toutes les variables sont statistiquement significatives (p < 0.05).
 
 Les résultats complets des estimations sont disponibles dans le fichier :
 
-`results_havar.txt`
+`resultats_havar.txt`
 
 ---
 
@@ -146,8 +147,8 @@ Les résultats complets des estimations sont disponibles dans le fichier :
  
 Conformément aux consignes de la prof :
  
-- **Partie 1 (Yuka)** : script Python + présentation orale avec support visuel — soutenance le 7 mai 2026
-- **Partie 2 (CDP)** : script Python + rapport écrit — deadline 4 mai 2026 à 23h59
+- **Projet Yuka** : notebooks + présentation orale avec support visuel — soutenance le 7 mai 2026
+- Le projet CDP, autre livrable du cours, n’est pas dans ce dépôt.
 ---
  
 *Cours dispensé par Mme Imen Ghattassi — Université Sorbonne Paris Nord*
