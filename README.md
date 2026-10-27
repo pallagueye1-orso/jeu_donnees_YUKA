@@ -142,6 +142,18 @@ Les résultats complets des estimations sont disponibles dans le fichier :
 
 ---
 
+## Comment exécuter
+
+```bash
+pip install -r requirements.txt
+jupyter notebook
+```
+
+Lancer Jupyter depuis la racine du dépôt, puis ouvrir un notebook du dossier `scripts/`.
+Les notebooks ne lisent pas tous le fichier de données de la même façon : un chemin peut demander un ajustement selon le notebook.
+Ils n’ont pas été ré-exécutés lors de cette mise à jour.
+
+---
 
 ## Livrables
  
